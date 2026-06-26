@@ -1,5 +1,5 @@
-import { Link } from 'react-router-dom';
-import { motion } from 'framer-motion';
+import { Link } from "react-router-dom";
+import { motion } from "framer-motion";
 import {
   Leaf,
   Mail,
@@ -11,30 +11,38 @@ import {
   Linkedin,
   Youtube,
   ArrowRight,
-} from 'lucide-react';
-import { NAV_LINKS, CONTACT_INFO, SOCIAL_LINKS, APP_NAME } from '../../utils/constants';
+} from "lucide-react";
+import {
+  NAV_LINKS,
+  CONTACT_INFO,
+  SOCIAL_LINKS,
+  APP_NAME,
+} from "../../utils/constants";
 
 const Footer = () => {
+  const phoneNumbers = [CONTACT_INFO.phone, CONTACT_INFO.secondaryPhone].filter(
+    Boolean,
+  );
+
   const quickLinks = [
-    { name: 'Products', path: '/products' },
-    { name: 'Livestock', path: '/livestock' },
-    { name: 'Farm Land', path: '/farmland' },
-    { name: 'Contact Us', path: '/contact' },
+    { name: "Products", path: "/products" },
+    { name: "Livestock", path: "/livestock" },
+    { name: "Real estate", path: "/farmland" },
+    { name: "Contact Us", path: "/contact" },
   ];
 
   const categories = [
-    { name: 'Dairy Products', path: '/products?category=dairy' },
-    { name: 'Grains & Cereals', path: '/products?category=grains' },
-    { name: 'Vegetables', path: '/products?category=vegetables' },
-    { name: 'Fruits', path: '/products?category=fruits' },
-    { name: 'Spices', path: '/products?category=spices' },
+    { name: "Grains & Cereals", path: "/products?category=grains" },
+    { name: "Vegetables", path: "/products?category=vegetables" },
+    { name: "Fruits", path: "/products?category=fruits" },
+    { name: "Spices", path: "/products?category=spices" },
   ];
 
   const livestockTypes = [
-    { name: 'Cattle', path: '/livestock?category=cow' },
-    { name: 'Goats', path: '/livestock?category=goat' },
-    { name: 'Buffalo', path: '/livestock?category=buffalo' },
-    { name: 'Sheep', path: '/livestock?category=sheep' },
+    { name: "Cattle", path: "/livestock?category=cow" },
+    { name: "Goats", path: "/livestock?category=goat" },
+    { name: "Buffalo", path: "/livestock?category=buffalo" },
+    { name: "Sheep", path: "/livestock?category=sheep" },
   ];
 
   return (
@@ -62,13 +70,16 @@ const Footer = () => {
             </Link>
 
             <p className="text-dark-600 mb-6 max-w-md">
-              Premium agriculture marketplace connecting farmers with buyers. Quality dairy
-              products, livestock trading, and farm land solutions.
+              Premium agriculture marketplace connecting farmers with buyers.
+              Quality agricultural products, livestock trading, and Real estate
+              solutions.
             </p>
 
             {/* Newsletter */}
             <div>
-              <h4 className="text-white font-semibold mb-3">Subscribe to Newsletter</h4>
+              <h4 className="text-white font-semibold mb-3">
+                Subscribe to Newsletter
+              </h4>
               <div className="flex gap-2">
                 <input
                   type="email"
@@ -134,19 +145,18 @@ const Footer = () => {
           <div>
             <h4 className="text-white font-semibold mb-4">Contact Us</h4>
             <ul className="space-y-4">
-              <li className="flex items-start gap-3">
-                <MapPin className="w-5 h-5 text-gold-400 flex-shrink-0 mt-0.5" />
-                <span className="text-dark-600 text-sm">{CONTACT_INFO.address}</span>
-              </li>
-              <li className="flex items-center gap-3">
-                <Phone className="w-5 h-5 text-gold-400 flex-shrink-0" />
-                <a
-                  href={`tel:${CONTACT_INFO.phone}`}
-                  className="text-dark-600 hover:text-gold-400 text-sm transition-colors"
-                >
-                  {CONTACT_INFO.phone}
-                </a>
-              </li>
+              {phoneNumbers.map((phoneNumber, index) => (
+                <li key={phoneNumber} className="flex items-center gap-3">
+                  <Phone className="w-5 h-5 text-gold-400 flex-shrink-0" />
+                  <a
+                    href={`tel:${phoneNumber.replace(/\s+/g, "")}`}
+                    className="text-dark-600 hover:text-gold-400 text-sm transition-colors"
+                  >
+                    {index === 0 ? "Primary: " : "Secondary: "}
+                    {phoneNumber}
+                  </a>
+                </li>
+              ))}
               <li className="flex items-center gap-3">
                 <Mail className="w-5 h-5 text-gold-400 flex-shrink-0" />
                 <a

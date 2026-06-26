@@ -7,7 +7,7 @@ const About = () => {
   const [sectionRef, isVisible] = useScrollReveal({ threshold: 0.1 });
 
   const stats = [
-    { value: '15+', label: 'Years Experience' },
+    { value: '20+', label: 'Years Experience' },
     { value: '15K+', label: 'Happy Customers' },
     { value: '500+', label: 'Verified Sellers' },
     { value: '50+', label: 'Regions Served' },
@@ -130,16 +130,7 @@ const About = () => {
               </div>
             </motion.div>
 
-            {/* Experience Badge */}
-            <motion.div
-              initial={{ opacity: 0, scale: 0.8 }}
-              animate={isVisible ? { opacity: 1, scale: 1 } : {}}
-              transition={{ duration: 0.5, delay: 0.4 }}
-              className="absolute -bottom-6 -right-6 bg-gradient-to-br from-gold-600 to-gold-500 rounded-2xl p-6 shadow-gold-lg"
-            >
-              <div className="text-4xl font-bold text-dark-50">15+</div>
-              <div className="text-dark-50/80 text-sm">Years of Excellence</div>
-            </motion.div>
+            
           </motion.div>
 
           {/* Right - Content */}

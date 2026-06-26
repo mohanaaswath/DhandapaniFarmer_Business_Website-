@@ -1,13 +1,12 @@
 # AgriBusiness Marketplace
 
-Premium Agriculture Business Marketplace - A full-featured platform for agricultural products, dairy, livestock trading, and farm land real estate.
+Premium Agriculture Business Marketplace - A full-featured platform for agricultural products, livestock trading, and Real estate.
 
 ## Features
 
 - **Product Marketplace**: Browse and purchase fresh agricultural products
 - **Livestock Trading**: Find premium cattle, goats, buffalo, and more
-- **Dairy Products**: Fresh milk, ghee, paneer, curd, and butter
-- **Farm Land Real Estate**: Discover agricultural properties
+- **Real estate**: Discover agricultural properties
 - **Cart System**: Full shopping cart with checkout
 - **WhatsApp Integration**: Direct seller communication
 - **Responsive Design**: Mobile-first approach
@@ -77,7 +76,6 @@ frontend/
 │   │   ├── CartDrawer/
 │   │   ├── CheckoutModal/
 │   │   ├── Livestock/
-│   │   ├── DairyProducts/
 │   │   ├── FarmLand/
 │   │   ├── Testimonials/
 │   │   ├── Statistics/
@@ -114,6 +112,7 @@ VITE_EMAILJS_PUBLIC_KEY=your_public_key
 ## Deployment
 
 The project is ready for deployment on:
+
 - Vercel
 - Netlify
 - AWS Amplify

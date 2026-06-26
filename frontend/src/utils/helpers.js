@@ -1,7 +1,7 @@
 // Format currency
-export const formatCurrency = (amount, currency = 'USD', locale = 'en-US') => {
+export const formatCurrency = (amount, currency = "INR", locale = "en-IN") => {
   return new Intl.NumberFormat(locale, {
-    style: 'currency',
+    style: "currency",
     currency: currency,
     minimumFractionDigits: 0,
     maximumFractionDigits: 2,
@@ -9,23 +9,23 @@ export const formatCurrency = (amount, currency = 'USD', locale = 'en-US') => {
 };
 
 // Format number with commas
-export const formatNumber = (num, locale = 'en-US') => {
+export const formatNumber = (num, locale = "en-US") => {
   return new Intl.NumberFormat(locale).format(num);
 };
 
 // Format compact number (e.g., 1.5K, 2M)
-export const formatCompactNumber = (num, locale = 'en-US') => {
+export const formatCompactNumber = (num, locale = "en-US") => {
   return new Intl.NumberFormat(locale, {
-    notation: 'compact',
-    compactDisplay: 'short',
+    notation: "compact",
+    compactDisplay: "short",
   }).format(num);
 };
 
 // Truncate text
 export const truncateText = (text, maxLength = 100) => {
-  if (!text) return '';
+  if (!text) return "";
   if (text.length <= maxLength) return text;
-  return text.slice(0, maxLength).trim() + '...';
+  return text.slice(0, maxLength).trim() + "...";
 };
 
 // Generate unique ID
@@ -62,14 +62,15 @@ export const throttle = (func, limit) => {
 export const scrollToElement = (elementId, offset = 80) => {
   const element = document.getElementById(elementId);
   if (element) {
-    const top = element.getBoundingClientRect().top + window.pageYOffset - offset;
-    window.scrollTo({ top, behavior: 'smooth' });
+    const top =
+      element.getBoundingClientRect().top + window.pageYOffset - offset;
+    window.scrollTo({ top, behavior: "smooth" });
   }
 };
 
 // Scroll to top
 export const scrollToTop = () => {
-  window.scrollTo({ top: 0, behavior: 'smooth' });
+  window.scrollTo({ top: 0, behavior: "smooth" });
 };
 
 // Calculate discounted price
@@ -108,30 +109,30 @@ export const getImagePlaceholder = (width = 400, height = 300) => {
 export const getPexelsImage = (query, width = 800, height = 600) => {
   const images = {
     farm: [
-      'https://images.pexels.com/photos/265216/pexels-photo-265216.jpeg?auto=compress&cs=tinysrgb&w=800',
-      'https://images.pexels.com/photos/1595104/pexels-photo-1595104.jpeg?auto=compress&cs=tinysrgb&w=800',
-      'https://images.pexels.com/photos/2165989/pexels-photo-2165989.jpeg?auto=compress&cs=tinysrgb&w=800',
+      "https://images.pexels.com/photos/265216/pexels-photo-265216.jpeg?auto=compress&cs=tinysrgb&w=800",
+      "https://images.pexels.com/photos/1595104/pexels-photo-1595104.jpeg?auto=compress&cs=tinysrgb&w=800",
+      "https://images.pexels.com/photos/2165989/pexels-photo-2165989.jpeg?auto=compress&cs=tinysrgb&w=800",
     ],
     cow: [
-      'https://images.pexels.com/photos/42287/animal-cow-countryside-countryside-42287.jpeg?auto=compress&cs=tinysrgb&w=800',
-      'https://images.pexels.com/photos/1174154/pexels-photo-1174154.jpeg?auto=compress&cs=tinysrgb&w=800',
-      'https://images.pexels.com/photos/1908158/pexels-photo-1908158.jpeg?auto=compress&cs=tinysrgb&w=800',
+      "https://images.pexels.com/photos/42287/animal-cow-countryside-countryside-42287.jpeg?auto=compress&cs=tinysrgb&w=800",
+      "https://images.pexels.com/photos/1174154/pexels-photo-1174154.jpeg?auto=compress&cs=tinysrgb&w=800",
+      "https://images.pexels.com/photos/1908158/pexels-photo-1908158.jpeg?auto=compress&cs=tinysrgb&w=800",
     ],
     goat: [
-      'https://images.pexels.com/photos/36365/goat-nature-horns-animal.jpg?auto=compress&cs=tinysrgb&w=800',
-      'https://images.pexels.com/photos/161612/pexels-photo-161612.jpeg?auto=compress&cs=tinysrgb&w=800',
+      "https://images.pexels.com/photos/36365/goat-nature-horns-animal.jpg?auto=compress&cs=tinysrgb&w=800",
+      "https://images.pexels.com/photos/161612/pexels-photo-161612.jpeg?auto=compress&cs=tinysrgb&w=800",
     ],
     milk: [
-      'https://images.pexels.com/photo/247459/pexels-photo-247459.jpeg?auto=compress&cs=tinysrgb&w=800',
-      'https://images.pexels.com/photos/1435895/pexels-photo-1435895.jpeg?auto=compress&cs=tinysrgb&w=800',
+      "https://images.pexels.com/photo/247459/pexels-photo-247459.jpeg?auto=compress&cs=tinysrgb&w=800",
+      "https://images.pexels.com/photos/1435895/pexels-photo-1435895.jpeg?auto=compress&cs=tinysrgb&w=800",
     ],
     vegetables: [
-      'https://images.pexels.com/photos/1595104/pexels-photo-1595104.jpeg?auto=compress&cs=tinysrgb&w=800',
-      'https://images.pexels.com/photos/1435906/pexels-photo-1435906.jpeg?auto=compress&cs=tinysrgb&w=800',
+      "https://images.pexels.com/photos/1595104/pexels-photo-1595104.jpeg?auto=compress&cs=tinysrgb&w=800",
+      "https://images.pexels.com/photos/1435906/pexels-photo-1435906.jpeg?auto=compress&cs=tinysrgb&w=800",
     ],
     default: [
-      'https://images.pexels.com/photos/265216/pexels-photo-265216.jpeg?auto=compress&cs=tinysrgb&w=800',
-      'https://images.pexels.com/photos/1595104/pexels-photo-1595104.jpeg?auto=compress&cs=tinysrgb&w=800',
+      "https://images.pexels.com/photos/265216/pexels-photo-265216.jpeg?auto=compress&cs=tinysrgb&w=800",
+      "https://images.pexels.com/photos/1595104/pexels-photo-1595104.jpeg?auto=compress&cs=tinysrgb&w=800",
     ],
   };
 
@@ -141,7 +142,7 @@ export const getPexelsImage = (query, width = 800, height = 600) => {
 
 // Classnames helper
 export const cn = (...classes) => {
-  return classes.filter(Boolean).join(' ');
+  return classes.filter(Boolean).join(" ");
 };
 
 // Get reading time
@@ -154,12 +155,12 @@ export const getReadingTime = (text) => {
 // Format date
 export const formatDate = (date, options = {}) => {
   const defaultOptions = {
-    year: 'numeric',
-    month: 'long',
-    day: 'numeric',
+    year: "numeric",
+    month: "long",
+    day: "numeric",
     ...options,
   };
-  return new Date(date).toLocaleDateString('en-US', defaultOptions);
+  return new Date(date).toLocaleDateString("en-US", defaultOptions);
 };
 
 // Local storage helpers
@@ -169,7 +170,7 @@ export const storage = {
       const item = localStorage.getItem(key);
       return item ? JSON.parse(item) : defaultValue;
     } catch (error) {
-      console.error('Error reading from localStorage:', error);
+      console.error("Error reading from localStorage:", error);
       return defaultValue;
     }
   },
@@ -178,7 +179,7 @@ export const storage = {
       localStorage.setItem(key, JSON.stringify(value));
       return true;
     } catch (error) {
-      console.error('Error writing to localStorage:', error);
+      console.error("Error writing to localStorage:", error);
       return false;
     }
   },
@@ -187,15 +188,15 @@ export const storage = {
       localStorage.removeItem(key);
       return true;
     } catch (error) {
-      console.error('Error removing from localStorage:', error);
+      console.error("Error removing from localStorage:", error);
       return false;
     }
   },
 };
 
 // WhatsApp link generator
-export const getWhatsAppLink = (phone, message = '') => {
-  const cleanPhone = phone.replace(/\D/g, '');
+export const getWhatsAppLink = (phone, message = "") => {
+  const cleanPhone = phone.replace(/\D/g, "");
   const encodedMessage = encodeURIComponent(message);
   return `https://wa.me/${cleanPhone}?text=${encodedMessage}`;
 };

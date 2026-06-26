@@ -1,12 +1,16 @@
-import { motion } from 'framer-motion';
-import { Link } from 'react-router-dom';
-import { ShoppingCart, Heart, Star, Eye } from 'lucide-react';
-import { fadeeInUp } from '../../utils/constants';
-import { useCart } from '../../context/CartContext';
-import { formatCurrency, calculateDiscount } from '../../utils/helpers';
+import { motion } from "framer-motion";
+import { Link } from "react-router-dom";
+import { ShoppingCart, Heart, Star, Eye, Phone, Edit3, Trash2 } from "lucide-react";
+import { fadeInUp } from "../../utils/constants";
+import { useCart } from "../../context/CartContext";
+import { useProducts } from "../../context/ProductsContext";
+import { formatCurrency, calculateDiscount } from "../../utils/helpers";
+import { CONTACT_INFO } from "../../utils/constants";
+import { getWhatsAppLink } from "../../utils/helpers";
 
-const ProductCard = ({ product, index = 0, layout = 'grid' }) => {
+const ProductCard = ({ product, index = 0, layout = "grid" }) => {
   const { addToCart, isInCart } = useCart();
+  const { openEditForm, openDeleteForm } = useProducts();
   const inCart = isInCart(product.id);
 
   const discountedPrice = product.discountPercent
@@ -19,7 +23,14 @@ const ProductCard = ({ product, index = 0, layout = 'grid' }) => {
     addToCart(product);
   };
 
-  if (layout === 'list') {
+  const handleInquiry = (e) => {
+    e.preventDefault();
+    e.stopPropagation();
+    const message = `Hello! I am interested in ${product.name}. Could you provide more details about availability and pricing?`;
+    window.open(getWhatsAppLink(CONTACT_INFO.whatsapp, message), "_blank");
+  };
+
+  if (layout === "list") {
     return (
       <motion.div
         initial={{ opacity: 0, y: 20 }}
@@ -59,9 +70,36 @@ const ProductCard = ({ product, index = 0, layout = 'grid' }) => {
                 </h3>
                 <p className="text-sm text-dark-600">{product.category}</p>
               </div>
-              <div className="flex items-center gap-1 text-gold-400">
-                <Star className="w-4 h-4 fill-current" />
-                <span className="text-sm font-medium">{product.rating}</span>
+              <div className="flex flex-col items-end gap-2">
+                <div className="flex items-center gap-1 text-gold-400">
+                  <Star className="w-4 h-4 fill-current" />
+                  <span className="text-sm font-medium">{product.rating}</span>
+                </div>
+                {/* Management controls */}
+                <div className="flex gap-1.5 opacity-0 group-hover:opacity-100 transition-opacity duration-200">
+                  <button
+                    onClick={(e) => {
+                      e.preventDefault();
+                      e.stopPropagation();
+                      openEditForm(product);
+                    }}
+                    className="p-1.5 rounded-lg bg-dark-200 border border-gold-500/10 hover:border-gold-500/30 text-white hover:text-gold-400 transition-all"
+                    title="Edit Product"
+                  >
+                    <Edit3 className="w-3.5 h-3.5" />
+                  </button>
+                  <button
+                    onClick={(e) => {
+                      e.preventDefault();
+                      e.stopPropagation();
+                      openDeleteForm(product);
+                    }}
+                    className="p-1.5 rounded-lg bg-red-950/20 border border-red-500/15 hover:border-red-500/30 text-red-400 hover:text-red-300 transition-all"
+                    title="Delete Product"
+                  >
+                    <Trash2 className="w-3.5 h-3.5" />
+                  </button>
+                </div>
               </div>
             </div>
 
@@ -82,19 +120,29 @@ const ProductCard = ({ product, index = 0, layout = 'grid' }) => {
                 <span className="text-xs text-dark-600">{product.unit}</span>
               </div>
 
-              <button
-                onClick={handleAddToCart}
-                className={`flex items-center gap-2 px-4 py-2 rounded-xl transition-all duration-200 ${
-                  inCart
-                    ? 'bg-primary-600 text-white'
-                    : 'bg-gold-500 hover:bg-gold-400 text-dark-50'
-                }`}
-              >
-                <ShoppingCart className="w-4 h-4" />
-                <span className="text-sm font-medium">
-                  {inCart ? 'Added' : 'Add to Cart'}
-                </span>
-              </button>
+              <div className="flex gap-2">
+                <button
+                  onClick={handleInquiry}
+                  className="flex items-center gap-2 px-4 py-2 rounded-xl bg-green-600 hover:bg-green-500 text-white transition-all duration-200"
+                >
+                  <Phone className="w-4 h-4" />
+                  <span className="text-sm font-medium">Inquiry</span>
+                </button>
+
+                <button
+                  onClick={handleAddToCart}
+                  className={`flex items-center gap-2 px-4 py-2 rounded-xl transition-all duration-200 ${
+                    inCart
+                      ? "bg-primary-600 text-white"
+                      : "bg-gold-500 hover:bg-gold-400 text-dark-50"
+                  }`}
+                >
+                  <ShoppingCart className="w-4 h-4" />
+                  <span className="text-sm font-medium">
+                    {inCart ? "Added" : "Add to Cart"}
+                  </span>
+                </button>
+              </div>
             </div>
           </div>
         </Link>
@@ -111,7 +159,10 @@ const ProductCard = ({ product, index = 0, layout = 'grid' }) => {
     >
       <div className="relative rounded-2xl bg-dark-100/50 backdrop-blur-sm border border-gold-500/10 hover:border-gold-500/30 overflow-hidden transition-all duration-300 hover:shadow-gold">
         {/* Image */}
-        <Link to={`/products/${product.id}`} className="block relative overflow-hidden">
+        <Link
+          to={`/products/${product.id}`}
+          className="block relative overflow-hidden"
+        >
           <div className="aspect-[4/3] overflow-hidden">
             <img
               src={product.image}
@@ -144,12 +195,32 @@ const ProductCard = ({ product, index = 0, layout = 'grid' }) => {
 
           {/* Quick Actions */}
           <div className="absolute top-3 right-3 flex flex-col gap-2 opacity-0 translate-x-4 group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-300">
-            <button className="w-9 h-9 rounded-lg bg-dark-50/80 backdrop-blur-sm text-white hover:text-gold-400 flex items-center justify-center transition-colors">
-              <Heart className="w-4 h-4" />
+            <button
+              onClick={(e) => {
+                e.preventDefault();
+                e.stopPropagation();
+                openEditForm(product);
+              }}
+              className="w-9 h-9 rounded-lg bg-dark-50/80 backdrop-blur-sm text-white hover:text-gold-400 flex items-center justify-center transition-colors"
+              title="Edit Product"
+            >
+              <Edit3 className="w-4 h-4" />
+            </button>
+            <button
+              onClick={(e) => {
+                e.preventDefault();
+                e.stopPropagation();
+                openDeleteForm(product);
+              }}
+              className="w-9 h-9 rounded-lg bg-dark-50/80 backdrop-blur-sm text-red-400 hover:text-red-300 flex items-center justify-center transition-colors"
+              title="Delete Product"
+            >
+              <Trash2 className="w-4 h-4" />
             </button>
             <Link
               to={`/products/${product.id}`}
               className="w-9 h-9 rounded-lg bg-dark-50/80 backdrop-blur-sm text-white hover:text-gold-400 flex items-center justify-center transition-colors"
+              title="View Details"
             >
               <Eye className="w-4 h-4" />
             </Link>
@@ -157,17 +228,26 @@ const ProductCard = ({ product, index = 0, layout = 'grid' }) => {
 
           {/* Add to Cart Button */}
           <div className="absolute bottom-4 left-4 right-4 opacity-0 translate-y-4 group-hover:opacity-100 group-hover:translate-y-0 transition-all duration-300">
-            <button
-              onClick={handleAddToCart}
-              className={`w-full flex items-center justify-center gap-2 py-3 rounded-xl font-medium transition-colors ${
-                inCart
-                  ? 'bg-primary-600 text-white'
-                  : 'bg-gold-500 hover:bg-gold-400 text-dark-50'
-              }`}
-            >
-              <ShoppingCart className="w-4 h-4" />
-              <span>{inCart ? 'Added to Cart' : 'Add to Cart'}</span>
-            </button>
+            <div className="flex gap-2">
+              <button
+                onClick={handleInquiry}
+                className="flex-1 flex items-center justify-center gap-2 py-3 rounded-xl bg-green-600 hover:bg-green-500 text-white font-medium transition-colors"
+              >
+                <Phone className="w-4 h-4" />
+                <span>Inquiry</span>
+              </button>
+              <button
+                onClick={handleAddToCart}
+                className={`flex-1 flex items-center justify-center gap-2 py-3 rounded-xl font-medium transition-colors ${
+                  inCart
+                    ? "bg-primary-600 text-white"
+                    : "bg-gold-500 hover:bg-gold-400 text-dark-50"
+                }`}
+              >
+                <ShoppingCart className="w-4 h-4" />
+                <span>{inCart ? "Added to Cart" : "Add to Cart"}</span>
+              </button>
+            </div>
           </div>
         </Link>
 
@@ -194,9 +274,13 @@ const ProductCard = ({ product, index = 0, layout = 'grid' }) => {
           <div className="flex items-center gap-2 mt-3">
             <div className="flex items-center gap-1">
               <Star className="w-4 h-4 text-gold-400 fill-current" />
-              <span className="text-sm text-white font-medium">{product.rating}</span>
+              <span className="text-sm text-white font-medium">
+                {product.rating}
+              </span>
             </div>
-            <span className="text-dark-600 text-sm">({product.reviews} reviews)</span>
+            <span className="text-dark-600 text-sm">
+              ({product.reviews} reviews)
+            </span>
           </div>
 
           {/* Price */}

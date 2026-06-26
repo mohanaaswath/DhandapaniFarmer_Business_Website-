@@ -1,6 +1,6 @@
 import { useEffect } from 'react';
 import { motion } from 'framer-motion';
-import { Beef, Award, Shield, CheckBadge, Phone } from 'lucide-react';
+import { Beef, Award, Shield, BadgeCheck, Phone } from 'lucide-react';
 import LivestockComponent from '../components/Livestock/Livestock';
 import { updatePageSEO } from '../utils/seo';
 import { CONTACT_INFO } from '../utils/constants';
@@ -75,7 +75,7 @@ const Livestock = () => {
           <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
             {[
               {
-                icon: CheckBadge,
+                icon: BadgeCheck,
                 title: 'Verified Sellers',
                 desc: 'All sellers are vetted',
                 color: 'text-gold-400',

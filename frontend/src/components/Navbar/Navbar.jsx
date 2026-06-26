@@ -1,6 +1,6 @@
-import { useState, useEffect } from 'react';
-import { Link, useLocation } from 'react-router-dom';
-import { motion, AnimatePresence } from 'framer-motion';
+import { useState, useEffect } from "react";
+import { Link, useLocation } from "react-router-dom";
+import { motion, AnimatePresence } from "framer-motion";
 import {
   Menu,
   X,
@@ -8,10 +8,10 @@ import {
   MessageCircle,
   Leaf,
   ChevronDown,
-} from 'lucide-react';
-import { NAV_LINKS, CONTACT_INFO, glassStyle } from '../../utils/constants';
-import { useCart } from '../../context/CartContext';
-import { getWhatsAppLink } from '../../utils/helpers';
+} from "lucide-react";
+import { NAV_LINKS, CONTACT_INFO, glassStyle } from "../../utils/constants";
+import { useCart } from "../../context/CartContext";
+import { getWhatsAppLink } from "../../utils/helpers";
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -25,8 +25,8 @@ const Navbar = () => {
       setIsScrolled(window.scrollY > 20);
     };
 
-    window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
   useEffect(() => {
@@ -40,26 +40,22 @@ const Navbar = () => {
       transition={{ duration: 0.5 }}
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
         isScrolled
-          ? 'bg-dark-50/95 backdrop-blur-md shadow-lg border-b border-gold-500/10'
-          : 'bg-transparent'
+          ? "bg-dark-50/95 backdrop-blur-md shadow-lg border-b border-gold-500/10"
+          : "bg-transparent"
       }`}
     >
       <nav className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-20">
           {/* Logo */}
-          <Link
-            to="/"
-            className="flex items-center gap-3 group"
-          >
-            <div className="relative">
-              <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-primary-600 to-primary-800 flex items-center justify-center shadow-gold group-hover:shadow-gold-lg transition-shadow duration-300">
-                <Leaf className="w-7 h-7 text-gold-400" />
-              </div>
-              <div className="absolute -inset-1 rounded-xl bg-gold-500/20 blur opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-            </div>
+          <Link to="/" className="flex items-center gap-3 group">
+            <img
+              src="/WebsiteLogo.jpeg"
+              alt="Dhandapani Farmer logo"
+              className="w-12 h-12 rounded-xl object-cover shadow-gold group-hover:shadow-gold-lg transition-shadow duration-300"
+            />
             <div className="flex flex-col">
               <span className="text-xl font-display font-bold text-white tracking-tight">
-                Agri<span className="text-gold-400">Business</span>
+                Dhandapani<span className="text-gold-400">Farmer</span>
               </span>
               <span className="text-[10px] text-dark-600 tracking-widest uppercase">
                 Marketplace
@@ -75,8 +71,8 @@ const Navbar = () => {
                 to={link.path}
                 className={`relative px-4 py-2 text-sm font-medium transition-colors duration-200 ${
                   location.pathname === link.path
-                    ? 'text-gold-400'
-                    : 'text-dark-700 hover:text-white'
+                    ? "text-gold-400"
+                    : "text-dark-700 hover:text-white"
                 }`}
               >
                 {link.name}
@@ -84,7 +80,7 @@ const Navbar = () => {
                   <motion.div
                     layoutId="activeNav"
                     className="absolute bottom-0 left-0 right-0 h-0.5 bg-gradient-to-r from-gold-500 to-gold-300"
-                    transition={{ type: 'spring', stiffness: 380, damping: 30 }}
+                    transition={{ type: "spring", stiffness: 380, damping: 30 }}
                   />
                 )}
               </Link>
@@ -112,7 +108,10 @@ const Navbar = () => {
 
             {/* WhatsApp Button */}
             <a
-              href={getWhatsAppLink(CONTACT_INFO.whatsapp, 'Hello! I am interested in your agricultural products.')}
+              href={getWhatsAppLink(
+                CONTACT_INFO.whatsapp,
+                "Hello! I am interested in your agricultural products.",
+              )}
               target="_blank"
               rel="noopener noreferrer"
               className="flex items-center gap-2 px-4 py-2.5 rounded-xl bg-green-600 hover:bg-green-500 text-white font-medium transition-all duration-200 group"
@@ -144,7 +143,7 @@ const Navbar = () => {
           {isOpen && (
             <motion.div
               initial={{ opacity: 0, height: 0 }}
-              animate={{ opacity: 1, height: 'auto' }}
+              animate={{ opacity: 1, height: "auto" }}
               exit={{ opacity: 0, height: 0 }}
               transition={{ duration: 0.3 }}
               className="lg:hidden overflow-hidden"
@@ -156,8 +155,8 @@ const Navbar = () => {
                     to={link.path}
                     className={`block px-4 py-3 rounded-xl transition-all duration-200 ${
                       location.pathname === link.path
-                        ? 'bg-gold-500/10 text-gold-400 border-l-2 border-gold-500'
-                        : 'text-dark-600 hover:bg-dark-100 hover:text-white'
+                        ? "bg-gold-500/10 text-gold-400 border-l-2 border-gold-500"
+                        : "text-dark-600 hover:bg-dark-100 hover:text-white"
                     }`}
                   >
                     <span className="font-medium">{link.name}</span>
@@ -180,7 +179,10 @@ const Navbar = () => {
 
                 {/* Mobile WhatsApp */}
                 <a
-                  href={getWhatsAppLink(CONTACT_INFO.whatsapp, 'Hello! I am interested in your agricultural products.')}
+                  href={getWhatsAppLink(
+                    CONTACT_INFO.whatsapp,
+                    "Hello! I am interested in your agricultural products.",
+                  )}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="flex items-center gap-3 px-4 py-3 rounded-xl bg-green-600 text-white"

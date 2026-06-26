@@ -1,14 +1,14 @@
-import { useEffect } from 'react';
-import { motion } from 'framer-motion';
-import { MapPin, Award, Shield, FileCheck, Phone } from 'lucide-react';
-import FarmLandComponent from '../components/FarmLand/FarmLand';
-import { updatePageSEO } from '../utils/seo';
-import { CONTACT_INFO } from '../utils/constants';
-import { getWhatsAppLink } from '../utils/helpers';
+import { useEffect } from "react";
+import { motion } from "framer-motion";
+import { MapPin, Award, Shield, FileCheck, Phone } from "lucide-react";
+import FarmLandComponent from "../components/FarmLand/FarmLand";
+import { updatePageSEO } from "../utils/seo";
+import { CONTACT_INFO } from "../utils/constants";
+import { getWhatsAppLink } from "../utils/helpers";
 
 const FarmLand = () => {
   useEffect(() => {
-    updatePageSEO('farmland');
+    updatePageSEO("farmland");
   }, []);
 
   return (
@@ -31,7 +31,9 @@ const FarmLand = () => {
               className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-gold-500/10 border border-gold-500/20 mb-6"
             >
               <MapPin className="w-4 h-4 text-gold-400" />
-              <span className="text-gold-400 text-sm font-medium">Farm Land & Real Estate</span>
+              <span className="text-gold-400 text-sm font-medium">
+                Real estate
+              </span>
             </motion.div>
 
             <motion.h1
@@ -40,7 +42,8 @@ const FarmLand = () => {
               transition={{ delay: 0.1 }}
               className="text-4xl sm:text-5xl lg:text-6xl font-display font-bold text-white mb-6"
             >
-              Premium <span className="text-gold-400">Agricultural</span> Properties
+              Premium <span className="text-gold-400">Agricultural</span>{" "}
+              Properties
             </motion.h1>
 
             <motion.p
@@ -49,15 +52,18 @@ const FarmLand = () => {
               transition={{ delay: 0.2 }}
               className="text-lg text-dark-600"
             >
-              Discover fertile farm lands, ranches, orchards, and agricultural properties.
-              Verified listings with complete legal documentation.
+              Discover fertile Real estate, ranches, orchards, and agricultural
+              properties. Verified listings with complete legal documentation.
             </motion.p>
 
             <motion.a
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.3 }}
-              href={getWhatsAppLink(CONTACT_INFO.whatsapp, 'Hello! I am interested in your agricultural properties.')}
+              href={getWhatsAppLink(
+                CONTACT_INFO.whatsapp,
+                "Hello! I am interested in your agricultural properties.",
+              )}
               target="_blank"
               rel="noopener noreferrer"
               className="inline-flex items-center gap-2 mt-6 px-6 py-3 rounded-xl bg-green-600 hover:bg-green-500 text-white font-medium transition-colors"
@@ -76,27 +82,27 @@ const FarmLand = () => {
             {[
               {
                 icon: FileCheck,
-                title: 'Legal Documentation',
-                desc: 'Complete paperwork',
-                color: 'text-gold-400',
+                title: "Legal Documentation",
+                desc: "Complete paperwork",
+                color: "text-gold-400",
               },
               {
                 icon: Shield,
-                title: 'Verified Listings',
-                desc: 'Authentic properties',
-                color: 'text-primary-400',
+                title: "Verified Listings",
+                desc: "Authentic properties",
+                color: "text-primary-400",
               },
               {
                 icon: Award,
-                title: 'Best Value',
-                desc: 'Competitive pricing',
-                color: 'text-gold-400',
+                title: "Best Value",
+                desc: "Competitive pricing",
+                color: "text-gold-400",
               },
               {
                 icon: MapPin,
-                title: 'Prime Locations',
-                desc: 'Strategic areas',
-                color: 'text-primary-400',
+                title: "Prime Locations",
+                desc: "Strategic areas",
+                color: "text-primary-400",
               },
             ].map((feature, index) => (
               <div key={index} className="text-center">

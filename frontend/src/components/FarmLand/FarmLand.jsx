@@ -1,44 +1,64 @@
-import { useState, useMemo } from 'react';
-import { motion } from 'framer-motion';
-import { Link } from 'react-router-dom';
-import { Search, MapPin, Ruler, Droplets, CheckCircle, Phone } from 'lucide-react';
-import { farmland, searchFarmland } from '../../data/farmland';
-import { formatCurrency, getWhatsAppLink, formatNumber } from '../../utils/helpers';
-import { CONTACT_INFO } from '../../utils/constants';
-import { useScrollReveal } from '../../hooks/useScrollReveal';
+import { useMemo, useState } from "react";
+import { motion } from "framer-motion";
+
+import {
+  Search,
+  MapPin,
+  Ruler,
+  Droplets,
+  CheckCircle,
+  Phone,
+  Edit3,
+  Trash2,
+} from "lucide-react";
+import { formatCurrency, getWhatsAppLink } from "../../utils/helpers";
+import { CONTACT_INFO } from "../../utils/constants";
+import { useScrollReveal } from "../../hooks/useScrollReveal";
+import { useRealEstate } from "../../context/RealEstateContext";
 
 const FarmLand = () => {
   const [sectionRef, isVisible] = useScrollReveal({ threshold: 0.1 });
-  const [searchQuery, setSearchQuery] = useState('');
-  const [priceRange, setPriceRange] = useState('all');
+  const [searchQuery, setSearchQuery] = useState("");
+  const [priceRange, setPriceRange] = useState("all");
+
+  const { properties, openCreateForm, openEditForm, openDeleteConfirm } =
+    useRealEstate();
 
   const priceRanges = [
-    { id: 'all', label: 'All Prices' },
-    { id: 'low', label: 'Under $300K', min: 0, max: 300000 },
-    { id: 'mid', label: '$300K - $500K', min: 300000, max: 500000 },
-    { id: 'high', label: 'Over $500K', min: 500000, max: Infinity },
+    { id: "all", label: "All Prices" },
+    { id: "low", label: "Under ₹3L", min: 0, max: 300000 },
+    { id: "mid", label: "₹3L - ₹5L", min: 300000, max: 500000 },
+    { id: "high", label: "Over ₹5L", min: 500000, max: Infinity },
   ];
 
   const filteredLand = useMemo(() => {
-    let result = farmland;
+    let result = properties || [];
 
     if (searchQuery) {
-      result = searchFarmland(searchQuery);
+      const q = searchQuery.toLowerCase();
+      result = result.filter(
+        (p) =>
+          (p.name || "").toLowerCase().includes(q) ||
+          (p.location || "").toLowerCase().includes(q),
+      );
     }
 
-    if (priceRange !== 'all') {
+    if (priceRange !== "all") {
       const range = priceRanges.find((r) => r.id === priceRange);
       result = result.filter(
-        (item) => item.price >= range.min && item.price <= range.max
+        (item) => item.price >= range.min && item.price <= range.max,
       );
     }
 
     return result;
-  }, [searchQuery, priceRange]);
+  }, [properties, searchQuery, priceRange]);
 
   const handleInquiry = (property) => {
     const message = `Hello! I am interested in ${property.name} (${property.size}). Could you provide more details about availability and viewing schedule?`;
-    window.open(getWhatsAppLink(CONTACT_INFO.whatsapp, message), '_blank');
+    window.open(
+      getWhatsAppLink(CONTACT_INFO.whatsapp, message),
+      "_blank",
+    );
   };
 
   return (
@@ -48,7 +68,6 @@ const FarmLand = () => {
       className="relative py-24 lg:py-32 bg-dark-50"
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        {/* Section Header */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={isVisible ? { opacity: 1, y: 0 } : {}}
@@ -56,18 +75,30 @@ const FarmLand = () => {
           className="text-center max-w-3xl mx-auto mb-12"
         >
           <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-gold-500/10 border border-gold-500/20 mb-6">
-            <span className="text-gold-400 text-sm font-medium">Farm Land & Real Estate</span>
+            <span className="text-gold-400 text-sm font-medium">
+              Real estate
+            </span>
           </div>
           <h2 className="text-3xl sm:text-4xl lg:text-5xl font-display font-bold text-white mb-6">
-            Premium <span className="text-gold-400">Agricultural</span> Properties
+            Premium <span className="text-gold-400">Agricultural</span>{" "}
+            Properties
           </h2>
           <p className="text-lg text-dark-600">
-            Discover fertile farm lands, ranches, orchards, and agricultural properties.
-            Verified listings with complete legal documentation.
+            Discover fertile Real estate, ranches, orchards, and agricultural
+            properties. Verified listings with complete legal documentation.
           </p>
         </motion.div>
 
-        {/* Search and Filter */}
+        <div className="flex justify-center mb-10">
+          <button
+            type="button"
+            onClick={openCreateForm}
+            className="inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-gold-500 hover:bg-gold-400 text-dark-50 text-sm font-medium transition-colors"
+          >
+            + Add Real Estate
+          </button>
+        </div>
+
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={isVisible ? { opacity: 1, y: 0 } : {}}
@@ -93,8 +124,8 @@ const FarmLand = () => {
                   onClick={() => setPriceRange(range.id)}
                   className={`px-4 py-2 rounded-xl text-sm font-medium whitespace-nowrap transition-all duration-200 ${
                     priceRange === range.id
-                      ? 'bg-gold-500 text-dark-50'
-                      : 'bg-dark-100 text-dark-600 hover:text-white border border-gold-500/20'
+                      ? "bg-gold-500 text-dark-50"
+                      : "bg-dark-100 text-dark-600 hover:text-white border border-gold-500/20"
                   }`}
                 >
                   {range.label}
@@ -104,44 +135,46 @@ const FarmLand = () => {
           </div>
         </motion.div>
 
-        {/* Property Grid */}
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+        <div className="flex flex-col gap-8">
           {filteredLand.map((property, index) => (
             <motion.div
               key={property.id}
-              initial={{ opacity: 0, y: 20 }}
+              initial={{ opacity: 0, y: 12 }}
               animate={isVisible ? { opacity: 1, y: 0 } : {}}
-              transition={{ duration: 0.4, delay: index * 0.1 }}
+              transition={{ duration: 0.35, delay: index * 0.05 }}
               className="group"
             >
-              <div className="flex flex-col sm:flex-row rounded-2xl bg-dark-100/50 backdrop-blur-sm border border-gold-500/10 hover:border-gold-500/30 overflow-hidden transition-all duration-300 hover:shadow-gold">
-                {/* Image */}
-                <div className="relative sm:w-72 flex-shrink-0">
-                  <div className="aspect-video sm:aspect-square h-full overflow-hidden">
+              {/* Full-row card */}
+              <div className="flex w-full rounded-2xl bg-dark-100/50 backdrop-blur-sm border border-gold-500/10 hover:border-gold-500/30 overflow-hidden transition-all duration-300 hover:shadow-gold">
+                {/* Left media */}
+                <div className="w-30 flex-shrink-0 relative">
+                  <div className="aspect-video h-full overflow-hidden bg-dark-100">
                     <img
-                      src={property.images[0]}
+                      src={property.images?.[0]}
                       alt={property.name}
                       className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                     />
                   </div>
+
                   <div className="absolute inset-0 bg-gradient-to-t from-dark-50/80 to-transparent" />
 
-                  {/* Badges */}
-                  <div className="absolute top-3 left-3 flex gap-2">
-                    {property.featured && (
+                  {property.featured && (
+                    <div className="absolute top-3 left-3">
                       <span className="px-2 py-1 rounded-lg bg-gold-500 text-dark-50 text-xs font-bold">
                         Featured
                       </span>
-                    )}
-                    {property.verified && (
+                    </div>
+                  )}
+
+                  {property.verified && (
+                    <div className="absolute top-3 left-20">
                       <span className="px-2 py-1 rounded-lg bg-primary-600 text-white text-xs font-medium flex items-center gap-1">
                         <CheckCircle className="w-3 h-3" />
                         Verified
                       </span>
-                    )}
-                  </div>
+                    </div>
+                  )}
 
-                  {/* Price */}
                   <div className="absolute bottom-3 left-3 right-3">
                     <span className="text-2xl font-bold text-gold-400">
                       {formatCurrency(property.price)}
@@ -149,23 +182,55 @@ const FarmLand = () => {
                   </div>
                 </div>
 
-                {/* Content */}
-                <div className="flex-1 p-5 flex flex-col">
-                  <h3 className="text-lg font-semibold text-white group-hover:text-gold-400 transition-colors mb-2">
-                    {property.name}
-                  </h3>
+                {/* Right content */}
+                <div className="flex-1 p-5 flex flex-col gap-3 ">
+                  <div className="flex items-start justify-between gap-3">
+                    <h3 className="text-lg sm:text-xl font-semibold text-white group-hover:text-gold-400 transition-colors">
+                      {property.name}
+                    </h3>
 
-                  <div className="flex items-center gap-2 text-dark-600 mb-3">
+                    <div className="flex items-center gap-2 flex-wrap justify-end">
+                      <button
+                        type="button"
+                        onClick={() => openEditForm(property)}
+                        className="flex items-center gap-2 px-4 py-2 rounded-xl bg-dark-100 hover:bg-white/5 text-red-50 text-sm font-medium border border-gold-500/20 transition-colors"
+                        title="Edit Real Estate"
+                      >
+                        <Edit3 className="w-4 h-4" />
+                        Edit
+                      </button>
+
+                      <button
+                        type="button"
+                        onClick={() => openDeleteConfirm(property)}
+                        className="flex items-center gap-2 px-4 py-2 rounded-xl bg-dark-100 hover:bg-white/5 text-red-50 text-sm font-medium border border-red-500/20 transition-colors"
+                        title="Delete Real Estate"
+                      >
+                        <Trash2 className="w-4 h-4 text-red-400" />
+                        Delete
+                      </button>
+
+                      <button
+                        type="button"
+                        onClick={() => handleInquiry(property)}
+                        className="flex items-center gap-2 px-4 py-2 rounded-xl bg-gold-500 hover:bg-gold-400 text-dark-50 text-sm font-medium transition-colors"
+                      >
+                        <Phone className="w-4 h-4" />
+                        Inquire Now
+                      </button>
+                    </div>
+                  </div>
+
+                  <div className="flex items-center gap-2 text-dark-600">
                     <MapPin className="w-4 h-4" />
                     <span className="text-sm">{property.location}</span>
                   </div>
 
-                  <p className="text-dark-600 text-sm line-clamp-2 mb-4">
+                  <p className="text-dark-600 text-sm line-clamp-2">
                     {property.description}
                   </p>
 
-                  {/* Key Specs */}
-                  <div className="grid grid-cols-2 gap-3 mb-4">
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                     <div className="flex items-center gap-2">
                       <Ruler className="w-4 h-4 text-gold-400" />
                       <div>
@@ -173,18 +238,20 @@ const FarmLand = () => {
                         <p className="text-sm text-white">{property.size}</p>
                       </div>
                     </div>
+
                     <div className="flex items-center gap-2">
                       <Droplets className="w-4 h-4 text-primary-400" />
                       <div>
                         <span className="text-xs text-dark-600">Water</span>
-                        <p className="text-sm text-white">{property.waterSource}</p>
+                        <p className="text-sm text-white">
+                          {property.waterSource}
+                        </p>
                       </div>
                     </div>
                   </div>
 
-                  {/* Suitable For */}
-                  <div className="flex flex-wrap gap-2 mb-4">
-                    {property.suitable_for.slice(0, 3).map((use) => (
+                  <div className="flex flex-wrap gap-2">
+                    {property.suitable_for?.slice(0, 4).map((use) => (
                       <span
                         key={use}
                         className="px-2 py-1 rounded-lg bg-dark-200/50 text-xs text-dark-600"
@@ -194,22 +261,13 @@ const FarmLand = () => {
                     ))}
                   </div>
 
-                  {/* Actions */}
-                  <div className="flex items-center justify-between mt-auto pt-4 border-t border-gold-500/10">
+                  <div className="flex items-center justify-between pt-2 border-t border-gold-500/10">
                     <div className="text-sm">
                       <span className="text-gold-400 font-semibold">
                         {formatCurrency(property.pricePerAcre)}
                       </span>
                       <span className="text-dark-600"> / acre</span>
                     </div>
-
-                    <button
-                      onClick={() => handleInquiry(property)}
-                      className="flex items-center gap-2 px-4 py-2 rounded-xl bg-gold-500 hover:bg-gold-400 text-dark-50 text-sm font-medium transition-colors"
-                    >
-                      <Phone className="w-4 h-4" />
-                      Inquire Now
-                    </button>
                   </div>
                 </div>
               </div>
@@ -217,7 +275,6 @@ const FarmLand = () => {
           ))}
         </div>
 
-        {/* Empty State */}
         {filteredLand.length === 0 && (
           <motion.div
             initial={{ opacity: 0 }}
@@ -227,8 +284,12 @@ const FarmLand = () => {
             <div className="w-24 h-24 mx-auto mb-6 rounded-xl bg-dark-100 flex items-center justify-center">
               <Search className="w-10 h-10 text-dark-600" />
             </div>
-            <h3 className="text-xl font-semibold text-white mb-2">No properties found</h3>
-            <p className="text-dark-600">Try adjusting your search or filter criteria</p>
+            <h3 className="text-xl font-semibold text-white mb-2">
+              No properties found
+            </h3>
+            <p className="text-dark-600">
+              Try adjusting your search or filter criteria
+            </p>
           </motion.div>
         )}
       </div>
@@ -237,3 +298,4 @@ const FarmLand = () => {
 };
 
 export default FarmLand;
+

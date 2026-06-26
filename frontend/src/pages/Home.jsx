@@ -1,20 +1,19 @@
-import { useEffect } from 'react';
-import { motion } from 'framer-motion';
-import Hero from '../components/Hero/Hero';
-import About from '../components/About/About';
-import ProductMarketplace from '../components/ProductMarketplace/ProductMarketplace';
-import DairyProducts from '../components/DairyProducts/DairyProducts';
-import Livestock from '../components/Livestock/Livestock';
-import FarmLand from '../components/FarmLand/FarmLand';
-import Testimonials from '../components/Testimonials/Testimonials';
-import Statistics from '../components/Statistics/Statistics';
-import Contact from '../components/Contact/Contact';
-import { updatePageSEO, injectJsonLd } from '../utils/seo';
+import { useEffect } from "react";
+import { motion } from "framer-motion";
+import Hero from "../components/Hero/Hero";
+import About from "../components/About/About";
+import ProductMarketplace from "../components/ProductMarketplace/ProductMarketplace";
+import Livestock from "../components/Livestock/Livestock";
+import FarmLand from "../components/FarmLand/FarmLand";
+import Testimonials from "../components/Testimonials/Testimonials";
+import Statistics from "../components/Statistics/Statistics";
+import Contact from "../components/Contact/Contact";
+import { updatePageSEO, injectJsonLd } from "../utils/seo";
 
 const Home = () => {
   useEffect(() => {
-    updatePageSEO('home');
-    injectJsonLd('Organization');
+    updatePageSEO("home");
+    injectJsonLd("Organization");
   }, []);
 
   return (
@@ -26,7 +25,6 @@ const Home = () => {
       <Hero />
       <About />
       <ProductMarketplace />
-      <DairyProducts />
       <Livestock />
       <FarmLand />
       <Statistics />

@@ -1,29 +1,34 @@
-import { motion } from 'framer-motion';
-import { Link } from 'react-router-dom';
-import { ArrowRight, Play, Leaf, Award, Truck, Shield } from 'lucide-react';
-import { fadeInUp, fadeInLeft, fadeInRight, staggerContainer } from '../../utils/constants';
+import { motion } from "framer-motion";
+import { Link } from "react-router-dom";
+import { ArrowRight, Play, Leaf, Award, Truck, Shield } from "lucide-react";
+import {
+  fadeInUp,
+  fadeInLeft,
+  fadeInRight,
+  staggerContainer,
+} from "../../utils/constants";
 
 const Hero = () => {
   const features = [
     {
       icon: Leaf,
-      title: 'Organic Products',
-      description: '100% certified organic',
+      title: "Organic Products",
+      description: "100% certified organic",
     },
     {
       icon: Award,
-      title: 'Premium Quality',
-      description: 'Best-in-class products',
+      title: "Premium Quality",
+      description: "Best-in-class products",
     },
     {
       icon: Truck,
-      title: 'Fast Delivery',
-      description: 'Nationwide shipping',
+      title: "Fast Delivery",
+      description: "Nationwide shipping",
     },
     {
       icon: Shield,
-      title: 'Verified Sellers',
-      description: 'Trusted partners only',
+      title: "Verified Sellers",
+      description: "Trusted partners only",
     },
   ];
 
@@ -44,12 +49,12 @@ const Hero = () => {
       <div className="absolute inset-0 z-0 overflow-hidden pointer-events-none">
         <motion.div
           animate={{ y: [0, -20, 0], rotate: [0, 5, 0] }}
-          transition={{ duration: 6, repeat: Infinity, ease: 'easeInOut' }}
+          transition={{ duration: 6, repeat: Infinity, ease: "easeInOut" }}
           className="absolute top-1/4 right-1/4 w-64 h-64 rounded-full bg-gold-500/10 blur-3xl"
         />
         <motion.div
           animate={{ y: [0, 20, 0], rotate: [0, -5, 0] }}
-          transition={{ duration: 8, repeat: Infinity, ease: 'easeInOut' }}
+          transition={{ duration: 8, repeat: Infinity, ease: "easeInOut" }}
           className="absolute bottom-1/4 left-1/4 w-96 h-96 rounded-full bg-primary-500/10 blur-3xl"
         />
       </div>
@@ -77,11 +82,11 @@ const Hero = () => {
 
             {/* Heading */}
             <motion.div variants={fadeInUp}>
-              <h1 className="text-4xl sm:text-5xl lg:text-6xl xl:text-7xl font-display font-bold leading-tight">
-                <span className="text-white">Farm Fresh</span>
+              <h1 className="text-6xl sm:text-5xl lg:text-6xl xl:text-4xl font-display font-bold leading-tight">
+                <span className="text-white">DHANDAPANI FARMER </span>
                 <br />
                 <span className="bg-gradient-to-r from-gold-400 to-gold-600 bg-clip-text text-transparent">
-                  Products & Livestock
+                  📍 Dhandapani Thootam, Muthur, Tamil Nadu
                 </span>
               </h1>
             </motion.div>
@@ -91,16 +96,14 @@ const Hero = () => {
               variants={fadeInUp}
               className="text-lg text-dark-600 max-w-xl"
             >
-              Connect with trusted farmers for premium dairy products, quality livestock, and
-              fertile farm land. Experience the authentic taste of nature with our verified
-              agricultural marketplace.
+              Connect with trusted farmers for premium agricultural products,
+              quality livestock, and fertile Real estate. Experience the
+              authentic taste of nature with our verified agricultural
+              marketplace.
             </motion.p>
 
             {/* CTA Buttons */}
-            <motion.div
-              variants={fadeInUp}
-              className="flex flex-wrap gap-4"
-            >
+            <motion.div variants={fadeInUp} className="flex flex-wrap gap-4">
               <Link
                 to="/products"
                 className="group relative inline-flex items-center gap-2 px-8 py-4 rounded-xl overflow-hidden"
@@ -112,16 +115,6 @@ const Hero = () => {
                   <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
                 </span>
               </Link>
-
-              <button className="group inline-flex items-center gap-3 px-8 py-4 rounded-xl border border-gold-500/30 hover:border-gold-500/60 bg-dark-100/50 backdrop-blur-sm transition-all duration-200">
-                <div className="w-12 h-12 rounded-full bg-gold-500/20 flex items-center justify-center group-hover:bg-gold-500/30 transition-colors">
-                  <Play className="w-5 h-5 text-gold-400 ml-0.5" />
-                </div>
-                <div className="text-left">
-                  <div className="text-white font-medium">Watch Video</div>
-                  <div className="text-dark-600 text-sm">Learn about us</div>
-                </div>
-              </button>
             </motion.div>
 
             {/* Stats */}
@@ -155,12 +148,16 @@ const Hero = () => {
               {/* Main Image */}
               <motion.div
                 animate={{ y: [0, -10, 0] }}
-                transition={{ duration: 4, repeat: Infinity, ease: 'easeInOut' }}
+                transition={{
+                  duration: 4,
+                  repeat: Infinity,
+                  ease: "easeInOut",
+                }}
                 className="col-span-2 rounded-2xl overflow-hidden shadow-2xl"
               >
                 <img
-                  src="https://images.pexels.com/photos/1174154/pexels-photo-1174154.jpeg?auto=compress&cs=tinysrgb&w=800"
-                  alt="Fresh dairy products"
+                  src="Homepagepic.jpeg"
+                  alt="Fresh agricultural products"
                   className="w-full h-64 object-cover"
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-dark-50/50 to-transparent" />
@@ -169,7 +166,12 @@ const Hero = () => {
               {/* Second Image */}
               <motion.div
                 animate={{ y: [0, 10, 0] }}
-                transition={{ duration: 5, repeat: Infinity, ease: 'easeInOut', delay: 0.5 }}
+                transition={{
+                  duration: 5,
+                  repeat: Infinity,
+                  ease: "easeInOut",
+                  delay: 0.5,
+                }}
                 className="rounded-2xl overflow-hidden shadow-xl"
               >
                 <img
@@ -182,7 +184,12 @@ const Hero = () => {
               {/* Third Image */}
               <motion.div
                 animate={{ y: [0, -10, 0] }}
-                transition={{ duration: 6, repeat: Infinity, ease: 'easeInOut', delay: 1 }}
+                transition={{
+                  duration: 6,
+                  repeat: Infinity,
+                  ease: "easeInOut",
+                  delay: 1,
+                }}
                 className="rounded-2xl overflow-hidden shadow-xl"
               >
                 <img
@@ -192,24 +199,6 @@ const Hero = () => {
                 />
               </motion.div>
             </div>
-
-            {/* Floating Card */}
-            <motion.div
-              initial={{ opacity: 0, scale: 0.8 }}
-              animate={{ opacity: 1, scale: 1 }}
-              transition={{ duration: 0.5, delay: 0.6 }}
-              className="absolute -bottom-6 -left-6 bg-dark-100/90 backdrop-blur-lg rounded-2xl p-4 shadow-xl border border-gold-500/20"
-            >
-              <div className="flex items-center gap-3">
-                <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-primary-500 to-primary-700 flex items-center justify-center">
-                  <Leaf className="w-6 h-6 text-white" />
-                </div>
-                <div>
-                  <div className="text-white font-semibold">100% Organic</div>
-                  <div className="text-dark-600 text-sm">Certified Products</div>
-                </div>
-              </div>
-            </motion.div>
           </motion.div>
         </div>
 
@@ -218,7 +207,7 @@ const Hero = () => {
           initial={{ opacity: 0, y: 50 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, delay: 0.4 }}
-          className="mt-16 -mb-8 relative z-20"
+          className="mt-16 mb-8 relative z-20"
         >
           <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
             {features.map((feature, index) => (
@@ -234,7 +223,9 @@ const Hero = () => {
                 </div>
                 <div>
                   <div className="text-white font-medium">{feature.title}</div>
-                  <div className="text-dark-600 text-sm">{feature.description}</div>
+                  <div className="text-dark-600 text-sm">
+                    {feature.description}
+                  </div>
                 </div>
               </motion.div>
             ))}
