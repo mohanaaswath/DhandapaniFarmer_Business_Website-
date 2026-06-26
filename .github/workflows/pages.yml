@@ -34,10 +34,6 @@ jobs:
 
       - name: Build
         working-directory: frontend
-        env:
-          # Vite env vars can be set here if needed, e.g.:
-          # VITE_SUPABASE_URL: ${{ secrets.VITE_SUPABASE_URL }}
-          # VITE_SUPABASE_ANON_KEY: ${{ secrets.VITE_SUPABASE_ANON_KEY }}
         run: npm run build
 
       - name: Setup Pages
